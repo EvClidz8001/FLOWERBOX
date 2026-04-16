@@ -1753,45 +1753,78 @@
             }
         }
 
-        /* ============================================== */
-        /* === НОВЫЙ БЛОК ПРАВОК: АДАПТИВ 5 КНОПОК === */
-        /* ============================================== */
+               
+        /* ===  5 КНОПОК === */
+       
         @media (max-width: 1200px) {
             .categories {
-                width: 100% !important; /* Переопределяем фиксированную ширину */
-                height: auto !important;
                 gap: 15px;
+                padding: 0 15px;
             }
             
             .category-btn {
-                padding: 14px 28px;
-                font-size: 20px;
-                white-space: nowrap;
+                padding: 14px 24px;
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .category-btn {
+                padding: 12px 20px;
+                font-size: 16px;
             }
         }
 
         @media (max-width: 768px) {
             .categories {
-                flex-wrap: wrap;
-                justify-content: center;
+                gap: 10px;
+                padding: 0 10px;
             }
             
             .category-btn {
-                padding: 10px 20px;
-                font-size: 16px;
-                white-space: normal; /* Разрешаем перенос текста */
-                text-align: center;
-                line-height: 1.2;
-                min-width: 120px;
-                flex: 0 1 auto;
+                padding: 10px 16px;
+                font-size: 14px;
+                white-space: nowrap;
             }
         }
 
-        @media (max-width: 480px) {
+        @media (max-width: 650px) {
+            .categories {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            
             .category-btn {
+                width: 100%;
+                padding: 12px 10px;
                 font-size: 14px;
-                padding: 8px 15px;
-                min-width: 100px;
+                white-space: normal;
+                text-align: center;
+            }
+            
+            /* Последняя кнопка по центру */
+            .category-btn:last-child {
+                grid-column: span 2;
+                max-width: 50%;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 450px) {
+            .categories {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+            
+            .category-btn {
+                padding: 12px;
+                font-size: 16px;
+            }
+            
+            .category-btn:last-child {
+                grid-column: span 1;
+                max-width: 100%;
             }
         }
                        /* ===== ИСПРАВЛЕНИЕ ДЛЯ МОБИЛЬНЫХ: ИКОНКИ ВВЕРХ ===== */
