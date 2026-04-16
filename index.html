@@ -1951,6 +1951,84 @@
                 width: 45px !important;
             }
         }
+                /* ===== ИСПРАВЛЕНИЕ Z-INDEX ДЛЯ МОБИЛЬНОГО МЕНЮ ===== */
+        @media (max-width: 992px) {
+            .nav-links {
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: #ffd4d4;
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+                padding: 20px;
+                border-radius: 0 0 20px 20px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+                z-index: 9999 !important; /* ← САМЫЙ ВЫСОКИЙ Z-INDEX */
+                display: none;
+            }
+            
+            .nav-links.active {
+                display: flex !important;
+            }
+            
+            .nav-links a {
+                font-size: 20px;
+                padding: 10px 20px;
+                width: 100%;
+                text-align: center;
+                background: rgba(255,255,255,0.5);
+                border-radius: 40px;
+                z-index: 10000;
+                cursor: pointer;
+            }
+            
+            .nav-links a:hover {
+                background: white;
+            }
+            
+            /* Убеждаемся что другие элементы не перекрывают */
+            .title-block, 
+            .call-btn-wrapper, 
+            .categories {
+                position: relative;
+                z-index: 5 !important;
+            }
+            
+            .hero {
+                z-index: 1;
+            }
+            
+            .top-bar {
+                z-index: 1000;
+            }
+            
+            /* Затемнение фона при открытом меню */
+            .nav-links.active::before {
+                content: '';
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0,0,0,0.3);
+                z-index: -1;
+                pointer-events: none;
+            }
+        }
+        
+        /* Для очень маленьких экранов */
+        @media (max-width: 480px) {
+            .nav-links {
+                top: 60px;
+            }
+            
+            .nav-links a {
+                font-size: 18px;
+                padding: 12px 15px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -3417,8 +3495,22 @@ let products = [
                 }
             }
         });
+        // ===== ЗАКРЫТИЕ МОБИЛЬНОГО МЕНЮ ПРИ КЛИКЕ НА ССЫЛКУ =====
+        const navLinksForMobile = document.getElementById('navLinks');
+        if (navLinksForMobile) {
+            const links = navLinksForMobile.querySelectorAll('a');
+            links.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth <= 992) {
+                        navLinksForMobile.classList.remove('active');
+                    }
+                });
+            });
+        }
         
         // Добавляем функции в глобальную область
+        window.showCheckout = showCheckout;
+        window.closeCheckoutModal = closeCheckoutModal;
         window.showCheckout = showCheckout;
         window.closeCheckoutModal = closeCheckoutModal;
         window.updateQuantity = updateQuantity;
