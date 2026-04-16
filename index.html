@@ -3167,39 +3167,30 @@ let products = [
         updateCartCount();
         updateProfileInfo();
         
-                // Бургер-меню
+                        // Бургер-меню и навигация 
         const burger = document.getElementById('burgerBtn');
         const menuText = document.getElementById('menuText');
-        const openCatalogBtn = document.getElementById('openCatalogBtn');
         const navLinks = document.getElementById('navLinks');
         
-        // Функция открытия каталога (для бургера у логотипа)
-        function openCatalog() {
-            openCatalogMenu();
-        }
-        
-        // Функция для открытия/закрытия навигации (для текста "Меню")
-        function toggleNav() {
-            navLinks.classList.toggle('active');
-        }
-        
-        // Бургер у логотипа открывает КАТАЛОГ
+        // КАТАЛОГ
         if (burger) {
-            burger.addEventListener('click', (e) => {
+            burger.onclick = (e) => {
                 e.stopPropagation();
-                openCatalog();
-            });
+                openCatalogMenu();
+            };
         }
         
-        // Текст "Меню" открывает НАВИГАЦИЮ
+        // НАВИГАЦИЮ
         if (menuText) {
-            menuText.addEventListener('click', (e) => {
+            menuText.onclick = (e) => {
                 e.stopPropagation();
-                toggleNav();
-            });
+                if (window.innerWidth <= 992) {
+                    navLinks.classList.toggle('active');
+                }
+            };
         }
         
-        // Закрываем навигацию при клике вне её на мобильных
+        // Закрываем навигацию 
         document.addEventListener('click', (e) => {
             if (window.innerWidth <= 992) {
                 if (!e.target.closest('.menu-text') && !e.target.closest('#navLinks')) {
@@ -3208,35 +3199,12 @@ let products = [
             }
         });
         
-        // При изменении размера экрана
+        // При изменении размера экрана сбрасываем навигацию
         window.addEventListener('resize', () => {
             if (window.innerWidth > 992) {
                 navLinks.classList.remove('active');
-                navLinks.style.display = ''; // Возвращаем стандартное отображение
             }
         });
-        
-        // Мобильная навигация
-                
-        const navLinks = document.getElementById('navLinks');
-        const existingBurger = document.getElementById('burgerBtn');
-        
-      
-        if (existingBurger) {
-            existingBurger.onclick = (e) => {
-                e.stopPropagation();
-                navLinks.classList.toggle('active');
-            };
-        }
-        
-        // Меню-текст тоже открывает каталог (оставляем как есть)
-        const menuText = document.getElementById('menuText');
-        if (menuText) {
-            menuText.onclick = () => {
-                openCatalogMenu();
-                navLinks.classList.remove('active');
-            };
-        }
         
         // Кнопка заказа звонка
         const callBtn = document.getElementById('callBtn');
