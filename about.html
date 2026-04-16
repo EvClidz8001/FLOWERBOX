@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>О нас — Цветочная коробка</title>
+    <style>
+        /* ===== ПОДКЛЮЧЕНИЕ ШРИФТОВ ===== */
+        @font-face {
+            font-family: 'Poppins-Light';
+            font-style: normal;
+            font-weight: 300;
+            src: url(../font/Poppins-Light_1.ttf) format('truetype');
+        }
+        @font-face {
+            font-family: 'Poppins-Light Italic';
+            font-style: italic;
+            font-weight: 300;
+            src: url(../font/Poppins-LightItalic_1.ttf) format('truetype');
+        }
+        @font-face {
+            font-family: 'Poppins-Regular';
+            font-style: normal;
+            font-weight: 400;
+            src: url(../font/Poppins-Regular_6.ttf) format('truetype');
+        }
+        @font-face {
+            font-family: 'Poppins-Thin Italic';
+            font-style: italic;
+            font-weight: 250;
+            src: url(../font/Poppins-ThinItalic_1.ttf) format('truetype');
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins-Light', sans-serif;
+            background: #ffcbcb;
+            overflow-x: hidden;
+        }
+
+        /* ===== ХЕДЕР С РОЗОВЫМ ФОНОМ ===== */
+        .hero {
+            background: linear-gradient(135deg, #efc6c6 0%, #d6a8a8 100%);
+            padding: 25px 40px 60px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255,182,193,0.3) 0%, rgba(255,182,193,0) 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -80px;
+            left: -80px;
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, rgba(255,200,210,0.3) 0%, rgba(255,200,210,0) 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        /* ===== ВЕРХНЯЯ ПАНЕЛЬ ===== */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            position: relative;
+            z-index: 10;
+            margin-bottom: 40px;
+        }
+
+        .menu-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+        }
+
+        .menu-icon {
+            width: 45px;
+            height: 45px;
+            margin-left: -20px;
+            margin-bottom: 60px;
+            border-radius: 50%;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .menu-icon:hover {
+            transform: scale(1.01);
+        }
+
+        .menu-text {
+            font-size: 22px;
+            font-family: 'Poppins-Thin Italic', sans-serif;
+            color: #333;
+            cursor: pointer;
+            transition: opacity 0.3s;
+            margin: 50px;
+        }
+
+        .menu-text:hover {
+            opacity: 0.7;
+        }
+
+        /* НАВИГАЦИЯ */
+        .nav-links {
+            display: flex;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            font-size: 32px;
+            font-family: 'Poppins-Light', sans-serif;
+            color: #222;
+            text-decoration: none;
+            transition: all 0.3s;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #ff3083;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #ff3083;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: #ff3083;
+        }
+
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .icons-area {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .logo-placeholder {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #ff9a9e, #ff6b8b);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            transition: transform 0.3s;
+        }
+
+        .logo-placeholder:hover {
+            transform: scale(1.1);
+        }
+
+        .icon-circle {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 22px;
+            position: relative;
+        }
+
+        .icon-circle:hover {
+            background: white;
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .cart {
+            position: relative;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ff3083;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Poppins-Regular', sans-serif;
+        }
+
+        /* ===== ЗАГОЛОВОК ===== */
+        .title-block {
+            text-align: center;
+            margin: 40px 0 30px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .main-title {
+            font-size: clamp(40px, 8vw, 70px);
+            font-family: 'Poppins-Light Italic', sans-serif;
+            color: #222;
+            letter-spacing: 4px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .subtitle {
+            font-size: clamp(18px, 4vw, 28px);
+            font-family: 'Poppins-Light Italic', sans-serif;
+            color: #555;
+            margin-top: 15px;
+        }
+
+        .flowers-decor {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        .flower {
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, #ffb6c1, #ff69b4);
+            border-radius: 50%;
+            animation: float 4s infinite ease-in-out;
+        }
+
+        .flower:nth-child(2) { animation-delay: 1s; width: 45px; height: 45px; background: radial-gradient(circle, #fbc2eb, #a6c1ee); }
+        .flower:nth-child(3) { animation-delay: 2s; width: 70px; height: 70px; }
+        .flower:nth-child(4) { animation-delay: 0.5s; width: 50px; height: 50px; }
+        .flower:nth-child(5) { animation-delay: 1.5s; width: 55px; height: 55px; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* ===== БУРГЕР-МЕНЮ ===== */
+        .burger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            z-index: 100;
+        }
+
+        .burger span {
+            width: 30px;
+            height: 3px;
+            background: #333;
+            transition: 0.3s;
+        }
+
+        /* ===== ОСНОВНОЙ КОНТЕНТ ===== */
+        .about-main {
+            max-width: 1400px;
+            margin: 60px auto;
+            padding: 0 30px;
+        }
+
+        .about-hero-card {
+            background: white;
+            border-radius: 40px;
+            padding: 50px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .about-hero-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        .about-hero-title {
+            font-size: 48px;
+            font-family: 'Poppins-Light Italic', sans-serif;
+            color: #ff3083;
+            margin-bottom: 20px;
+        }
+
+        .about-hero-text {
+            font-size: 22px;
+            color: #555;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Сетка преимуществ */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 30px;
+            padding: 35px 25px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(255, 48, 131, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 26px;
+            color: #ff3083;
+            margin-bottom: 15px;
+            font-family: 'Poppins-Regular', sans-serif;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        /* История */
+        .story-section {
+            background: white;
+            border-radius: 40px;
+            padding: 50px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            margin-bottom: 50px;
+        }
+
+        .story-title {
+            font-size: 36px;
+            font-family: 'Poppins-Light Italic', sans-serif;
+            color: #ff3083;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .story-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .story-text p {
+            font-size: 18px;
+            color: #444;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .story-image {
+            background: linear-gradient(135deg, #ff9a9e, #ff6b8b);
+            border-radius: 30px;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 100px;
+        }
+
+        /* Команда */
+        .team-section {
+            margin-bottom: 50px;
+        }
+
+        .team-title {
+            font-size: 36px;
+            font-family: 'Poppins-Light Italic', sans-serif;
+            color: #ff3083;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+        }
+
+        .team-card {
+            background: white;
+            border-radius: 30px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+
+        .team-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .team-photo {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #ffe0e0, #ffd4d4);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+        }
+
+        .team-card h4 {
+            font-size: 22px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .team-role {
+            color: #ff3083;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .team-desc {
+            color: #777;
+            font-size: 14px;
+        }
+
+        /* Цифры */
+        .stats-section {
+            background: linear-gradient(135deg, #ff9a9e, #ff6b8b);
+            border-radius: 40px;
+            padding: 50px;
+            margin-bottom: 50px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+
+        .stat-item {
+            color: white;
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: bold;
+            font-family: 'Poppins-Regular', sans-serif;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        /* ПОДВАЛ */
+        .main-footer {
+            background: #1a1a1a;
+            color: #ccc;
+            padding: 50px 40px 30px;
+            width: 100%;
+            margin: 0;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-col h4 {
+            color: #ff6b8b;
+            font-size: 20px;
+            margin-bottom: 20px;
+            font-family: 'Poppins-Regular', sans-serif;
+        }
+
+        .footer-col p {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .footer-col a {
+            color: #ccc;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            transition: color 0.3s;
+        }
+
+        .footer-col a:hover {
+            color: #ff6b8b;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid #333;
+            font-size: 14px;
+        }
+
+        .footer-phone {
+            font-size: 22px;
+            color: #ff6b8b;
+            font-weight: bold;
+        }
+
+        /* ===== АДАПТИВ ===== */
+        @media (max-width: 992px) {
+            .burger {
+                display: flex;
+            }
+            
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                right: 0;
+                background: #ffd4d4;
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+                padding: 30px;
+                border-radius: 0 0 20px 20px;
+                z-index: 100;
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-links a {
+                font-size: 24px;
+            }
+            
+            .hero {
+                padding: 20px 20px 60px 20px;
+            }
+            
+            .story-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .story-image {
+                height: 200px;
+            }
+            
+            .about-hero-card {
+                padding: 30px 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .about-main {
+                padding: 0 20px;
+            }
+            
+            .stats-section {
+                padding: 30px 20px;
+            }
+            
+            .stat-number {
+                font-size: 36px;
+            }
+            
+            .feature-card {
+                padding: 25px 15px;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .title-block {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+    </style>
+</head>
+<body>
+
+<div class="hero">
+    <div class="top-bar">
+        <div class="menu-area" onclick="toggleMobileMenu()">
+            <div class="burger" id="burgerBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="menu-icon"><img src="image/логотип.svg" alt="logo" height="80" width="80"></div>
+            <span class="menu-text">Меню</span>
+        </div>
+
+        <div class="nav-links" id="navLinks">
+            <a href="index.html"><i>Главная</i></a>
+            <a href="index.html"><i>Мой профиль</i></a>
+            <a class="active"><i>О нас</i></a>
+            <a href="index.html#map"><i>Где мы?</i></a>
+        </div>
+
+        <div class="icons-area">
+            <div class="logo">
+                <div class="logo-placeholder" style="background: transparent; box-shadow: none;"></div>
+            </div>
+            <div class="icon-circle" onclick="goToFavorites()">❤️</div>
+            <div class="icon-circle cart" onclick="goToCart()">
+                🛒
+                <span class="cart-count" id="cartCount">0</span>
+            </div>
+            <div class="icon-circle" onclick="goToProfile()">👤</div>
+        </div>
+    </div>
+
+    <div class="title-block">
+        <p class="main-title">🌸 О НАС 🌸</p>
+        <p class="subtitle">Узнайте больше о Цветочной коробке</p>
+    </div>
+
+    <div class="flowers-decor">
+        <div class="flower"></div>
+        <div class="flower"></div>
+        <div class="flower"></div>
+        <div class="flower"></div>
+        <div class="flower"></div>
+    </div>
+</div>
+
+<!-- ОСНОВНОЙ КОНТЕНТ -->
+<div class="about-main">
+    
+    <!-- Главная карточка -->
+    <div class="about-hero-card">
+        <div class="about-hero-icon">💐</div>
+        <h1 class="about-hero-title">Цветочная коробка</h1>
+        <p class="about-hero-text">
+            Мы создаём красивые букеты и дарим радость людям с 2020 года. 
+            Наша миссия — делать каждый день особенным с помощью свежих цветов 
+            и профессионального подхода к каждому заказу.
+        </p>
+    </div>
+
+    <!-- Преимущества -->
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon">🌺</div>
+            <h3>Только свежие цветы</h3>
+            <p>Мы получаем цветы напрямую от плантаций Голландии, Эквадора и Кении. Каждый букет собирается в день доставки.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🚚</div>
+            <h3>Быстрая доставка</h3>
+            <p>Собственная служба доставки по Краснодару и пригороду. Доставляем за 2 часа с момента заказа.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">🎨</div>
+            <h3>Индивидуальный дизайн</h3>
+            <p>Наши флористы создадут уникальную композицию по вашему желанию. Любые цвета, формы и упаковка.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">💝</div>
+            <h3>Забота о клиентах</h3>
+            <p>Поддержка 24/7, бесплатная замена цветов, гарантия свежести. Мы ценим каждого покупателя.</p>
+        </div>
+    </div>
+
+    <!-- Наша история -->
+    <div class="story-section">
+        <h2 class="story-title">📖 Наша история</h2>
+        <div class="story-content">
+            <div class="story-text">
+                <p><strong>2020 год</strong> — Всё началось с маленькой цветочной лавки на Колхозной улице. Основательница Анна мечтала создать место, где каждый найдёт идеальный букет для любого повода.</p>
+                <p><strong>2022 год</strong> — Мы запустили собственную службу доставки и расширили ассортимент до 50+ видов букетов и композиций. Открыли второй магазин в центре города.</p>
+                <p><strong>2024 год</strong> — Запустили сайт с онлайн-заказом. Теперь выбрать и заказать букет можно в пару кликов, не выходя из дома.</p>
+                <p><strong>2025 год</strong> — Более 10 000 довольных клиентов, сотни положительных отзывов и звание «Лучший цветочный магазин Краснодара» по версии городского портала.</p>
+            </div>
+            <div class="story-image">
+                🌷🌸🌹
+            </div>
+        </div>
+    </div>
+
+    <!-- Наша команда -->
+    <div class="team-section">
+        <h2 class="team-title">👩‍🌾 Наша команда</h2>
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-photo">👩</div>
+                <h4>Анна Смирнова</h4>
+                <div class="team-role">Основатель, главный флорист</div>
+                <div class="team-desc">Опыт работы 15 лет. Создаёт уникальные композиции и обучает команду.</div>
+            </div>
+            <div class="team-card">
+                <div class="team-photo">👩</div>
+                <h4>Елена Волкова</h4>
+                <div class="team-role">Ведущий флорист</div>
+                <div class="team-desc">Специалист по свадебной флористике. Знает всё о сочетании цветов.</div>
+            </div>
+            <div class="team-card">
+                <div class="team-photo">👨</div>
+                <h4>Дмитрий Орлов</h4>
+                <div class="team-role">Менеджер по закупкам</div>
+                <div class="team-desc">Отвечает за свежесть и качество каждого цветка в магазине.</div>
+            </div>
+            <div class="team-card">
+                <div class="team-photo">👩</div>
+                <h4>Мария Иванова</h4>
+                <div class="team-role">Служба заботы</div>
+                <div class="team-desc">Всегда на связи, поможет с выбором и ответит на любые вопросы.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Цифры -->
+    <div class="stats-section">
+        <div class="stat-item">
+            <div class="stat-number">5+</div>
+            <div class="stat-label">лет работы</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">10 000+</div>
+            <div class="stat-label">довольных клиентов</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">50+</div>
+            <div class="stat-label">видов букетов</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">24/7</div>
+            <div class="stat-label">поддержка</div>
+        </div>
+    </div>
+
+    <!-- Контакты -->
+    <div class="story-section" style="margin-bottom: 0;">
+        <h2 class="story-title">📍 Наши контакты</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; text-align: center;">
+            <div>
+                <div style="font-size: 40px; margin-bottom: 15px;">📍</div>
+                <h3 style="color: #ff3083; margin-bottom: 10px;">Адрес</h3>
+                <p>г. Краснодар, ул. Колхозная д. 5/1</p>
+            </div>
+            <div>
+                <div style="font-size: 40px; margin-bottom: 15px;">📞</div>
+                <h3 style="color: #ff3083; margin-bottom: 10px;">Телефон</h3>
+                <p style="font-size: 22px; font-weight: bold;">+7-938-479-79-17</p>
+            </div>
+            <div>
+                <div style="font-size: 40px; margin-bottom: 15px;">✉️</div>
+                <h3 style="color: #ff3083; margin-bottom: 10px;">Email</h3>
+                <p>info@flowerbox.ru</p>
+            </div>
+            <div>
+                <div style="font-size: 40px; margin-bottom: 15px;">🕐</div>
+                <h3 style="color: #ff3083; margin-bottom: 10px;">Режим работы</h3>
+                <p>Ежедневно с 9:00 до 21:00</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- ПОДВАЛ -->
+<footer class="main-footer">
+    <div class="footer-grid">
+        <div class="footer-col">
+            <h4>Цветочная коробка</h4>
+            <p>Доставка цветов в Краснодаре</p>
+            <p>Свежие цветы каждый день</p>
+            <p>💐 Индивидуальный подход</p>
+        </div>
+        <div class="footer-col">
+            <h4>Контакты</h4>
+            <p>📍 г. Краснодар, ул. Колхозная д. 5/1</p>
+            <p class="footer-phone">📞 +7-938-479-79-17</p>
+            <p>✉️ info@flowerbox.ru</p>
+        </div>
+        <div class="footer-col">
+            <h4>Навигация</h4>
+            <a href="index.html">Главная</a>
+            <a href="catalog.html">Каталог</a>
+            <a href="about.html">О нас</a>
+            <a href="index.html#map">Где мы?</a>
+        </div>
+        <div class="footer-col">
+            <h4>Политика</h4>
+            <a href="#">Политика конфиденциальности</a>
+            <a href="#">Обработка данных</a>
+            <a href="#">Пользовательское соглашение</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2025 Цветочная коробка. Все права защищены.</p>
+        <p style="margin-top: 10px; opacity: 0.7;">Сделано с любовью 💖</p>
+    </div>
+</footer>
+
+<script>
+    // Обновление счётчика корзины
+    function updateCartCount() {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const total = cart.reduce((sum, item) => sum + item.quantity, 0);
+        document.getElementById('cartCount').textContent = total;
+    }
+
+    // Навигация
+    function toggleMobileMenu() {
+        document.getElementById('navLinks').classList.toggle('active');
+    }
+
+    function goToCart() {
+        window.location.href = 'index.html';
+        setTimeout(() => {
+            const cartBtn = document.getElementById('cartBtn');
+            if (cartBtn) cartBtn.click();
+        }, 100);
+    }
+
+    function goToFavorites() {
+        window.location.href = 'index.html';
+        setTimeout(() => {
+            const favBtn = document.getElementById('favoritesHeartBtn');
+            if (favBtn) favBtn.click();
+        }, 100);
+    }
+
+    function goToProfile() {
+        window.location.href = 'index.html';
+        setTimeout(() => {
+            const profileIcon = document.getElementById('profileIcon');
+            if (profileIcon) profileIcon.click();
+        }, 100);
+    }
+
+    // Инициализация
+    document.addEventListener('DOMContentLoaded', () => {
+        updateCartCount();
+    });
+
+    // Глобальные функции
+    window.toggleMobileMenu = toggleMobileMenu;
+    window.goToCart = goToCart;
+    window.goToFavorites = goToFavorites;
+    window.goToProfile = goToProfile;
+</script>
+
+</body>
+</html>
