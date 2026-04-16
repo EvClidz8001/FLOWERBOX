@@ -2436,11 +2436,11 @@ let products = [
         renderCartModal();
     }
 
-        // ===== ПЕРЕМЕННАЯ ДЛЯ ОТКРЫТКИ =====
+        
     let cardAddedToOrder = false;
     const CARD_PRICE = 150;
 
-    // ===== ОТОБРАЖЕНИЕ КОРЗИНЫ (ОБНОВЛЁННОЕ С КНОПКОЙ ОТКРЫТКИ) =====
+    // ===== ОТОБРАЖЕНИЕ КОРЗИНЫ
     function renderCartModal() {
         const container = document.getElementById('checkoutBody');
         if (!container) return;
@@ -2570,9 +2570,8 @@ let products = [
         if (cityInput) cityInput.onchange = (e) => { orderCity = e.target.value; };
         if (classSelect) classSelect.onchange = (e) => { deliveryClass = e.target.value; };
     }
-    // ======================================================
-    // === НОВАЯ ФУНКЦИЯ: ДОБАВЛЕНИЕ ОТКРЫТКИ ЗА 150 РУБ ===
-    // ======================================================
+   // ОТКРЫТКИ ЗА 150 РУБ
+   
     function confirmOrderWithCard() {
         // Старая валидация из confirmOrderFinal
         if (cart.length === 0) {
@@ -3182,22 +3181,25 @@ let products = [
         if (openCatalogBtn) openCatalogBtn.addEventListener('click', openMenu);
         
         // Мобильная навигация
+                
         const navLinks = document.getElementById('navLinks');
-        const mobileNavBtn = document.createElement('div');
-        mobileNavBtn.className = 'burger';
-        mobileNavBtn.style.marginRight = '10px';
-        mobileNavBtn.innerHTML = '<span></span><span></span><span></span>';
-        mobileNavBtn.onclick = (e) => {
-            e.stopPropagation();
-            navLinks.classList.toggle('active');
-        };
+        const existingBurger = document.getElementById('burgerBtn');
         
-        if (window.innerWidth <= 992) {
-            const topBar = document.querySelector('.top-bar');
-            const existingBurger = topBar.querySelector('.burger:not(#burgerBtn)');
-            if (!existingBurger) {
-                topBar.insertBefore(mobileNavBtn, topBar.firstChild);
-            }
+      
+        if (existingBurger) {
+            existingBurger.onclick = (e) => {
+                e.stopPropagation();
+                navLinks.classList.toggle('active');
+            };
+        }
+        
+        // Меню-текст тоже открывает каталог (оставляем как есть)
+        const menuText = document.getElementById('menuText');
+        if (menuText) {
+            menuText.onclick = () => {
+                openCatalogMenu();
+                navLinks.classList.remove('active');
+            };
         }
         
         // Кнопка заказа звонка
