@@ -1794,7 +1794,77 @@
                 min-width: 100px;
             }
         }
-        /* ===== КОНЕЦ БЛОКА ПРАВОК ДЛЯ 5 КНОПОК ===== */
+                /* ===== ИСПРАВЛЕНИЕ ДЛЯ МОБИЛЬНЫХ: ИКОНКИ ВВЕРХ ===== */
+        @media (max-width: 992px) {
+            .top-bar {
+                display: flex;
+                flex-wrap: nowrap;
+                justify-content: space-between;
+                align-items: center;
+                gap: 5px;
+            }
+            
+            /* Логотип и меню - слева */
+            .menu-area {
+                order: 1;
+                flex-shrink: 0;
+                margin-right: auto;
+            }
+            
+            /* Навигация (скрыта по умолчанию) */
+            .nav-links {
+                order: 3;
+                width: 100%;
+            }
+            
+            /* Иконки - справа, в одну линию */
+            .icons-area {
+                order: 2;
+                display: flex;
+                flex-direction: row;
+                gap: 8px;
+                margin-left: 0;
+                flex-shrink: 0;
+            }
+            
+            /* Уменьшаем иконки для мобильных */
+            .icons-area .icon-circle {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+            
+            /* Логотип тоже чуть меньше */
+            .menu-icon img {
+                height: 50px;
+                width: 50px;
+            }
+            
+            /* Скрываем текст "Меню" на очень маленьких экранах */
+            @media (max-width: 480px) {
+                .menu-text {
+                    display: none;
+                }
+            }
+        }
+        
+        /* Для очень маленьких экранов ещё компактнее */
+        @media (max-width: 400px) {
+            .icons-area {
+                gap: 5px;
+            }
+            
+            .icons-area .icon-circle {
+                width: 35px;
+                height: 35px;
+                font-size: 16px;
+            }
+            
+            .menu-icon img {
+                height: 45px;
+                width: 45px;
+            }
+        }
     </style>
 </head>
 <body>
