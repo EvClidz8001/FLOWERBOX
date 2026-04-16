@@ -3167,18 +3167,54 @@ let products = [
         updateCartCount();
         updateProfileInfo();
         
-        // Бургер-меню
+                // Бургер-меню
         const burger = document.getElementById('burgerBtn');
         const menuText = document.getElementById('menuText');
         const openCatalogBtn = document.getElementById('openCatalogBtn');
+        const navLinks = document.getElementById('navLinks');
         
-        function openMenu() {
+        // Функция открытия каталога (для бургера у логотипа)
+        function openCatalog() {
             openCatalogMenu();
         }
         
-        if (burger) burger.addEventListener('click', openMenu);
-        if (menuText) menuText.addEventListener('click', openMenu);
-        if (openCatalogBtn) openCatalogBtn.addEventListener('click', openMenu);
+        // Функция для открытия/закрытия навигации (для текста "Меню")
+        function toggleNav() {
+            navLinks.classList.toggle('active');
+        }
+        
+        // Бургер у логотипа открывает КАТАЛОГ
+        if (burger) {
+            burger.addEventListener('click', (e) => {
+                e.stopPropagation();
+                openCatalog();
+            });
+        }
+        
+        // Текст "Меню" открывает НАВИГАЦИЮ
+        if (menuText) {
+            menuText.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleNav();
+            });
+        }
+        
+        // Закрываем навигацию при клике вне её на мобильных
+        document.addEventListener('click', (e) => {
+            if (window.innerWidth <= 992) {
+                if (!e.target.closest('.menu-text') && !e.target.closest('#navLinks')) {
+                    navLinks.classList.remove('active');
+                }
+            }
+        });
+        
+        // При изменении размера экрана
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 992) {
+                navLinks.classList.remove('active');
+                navLinks.style.display = ''; // Возвращаем стандартное отображение
+            }
+        });
         
         // Мобильная навигация
                 
