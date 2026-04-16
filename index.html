@@ -1752,54 +1752,73 @@
                 grid-template-columns: 1fr;
             }
         }
-
+        .hero {
+            background: linear-gradient(135deg, #efc6c6 0%, #d6a8a8 100%);
+            padding: 25px 15px 100px 15px; /* ← Уменьшил боковые отступы */
+            position: relative;
+            overflow: hidden;
+        }
+        
+        @media (max-width: 768px) {
+            .hero {
+                padding: 20px 10px 80px 10px; /* ← Ещё меньше на мобильных */
+            }
+        }
                
-               /* ===== АДАПТИВ ДЛЯ 5 КНОПОК ===== */
+                      /* ===== АДАПТИВ ДЛЯ 5 КНОПОК ===== */
+        .categories {
+            padding-left: 15px !important;
+            padding-right: 15px !important;
+            box-sizing: border-box;
+            width: 100% !important;
+        }
+        
+        .category-btn {
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        
         @media (max-width: 1100px) {
             .categories {
-                gap: 18px;
+                gap: 15px;
             }
             
             .category-btn {
-                padding: 15px 30px;
+                padding: 14px 28px;
                 font-size: 20px;
             }
         }
 
-        @media (max-width: 900px) {
+        @media (max-width: 950px) {
             .categories {
                 gap: 12px;
             }
             
             .category-btn {
-                padding: 12px 24px;
+                padding: 12px 22px;
                 font-size: 18px;
             }
         }
 
-        @media (max-width: 750px) {
-            .categories {
-                gap: 10px;
-            }
-            
+        @media (max-width: 800px) {
             .category-btn {
                 padding: 10px 18px;
                 font-size: 16px;
             }
         }
 
-        @media (max-width: 650px) {
+        @media (max-width: 700px) {
+            .categories {
+                gap: 8px;
+            }
+            
             .category-btn {
                 padding: 8px 14px;
                 font-size: 14px;
             }
         }
 
-        @media (max-width: 550px) {
-            .categories {
-                gap: 8px;
-            }
-            
+        @media (max-width: 600px) {
             .category-btn {
                 padding: 8px 12px;
                 font-size: 13px;
@@ -1807,13 +1826,29 @@
             }
         }
 
-        @media (max-width: 480px) {
+        @media (max-width: 500px) {
             .category-btn {
                 padding: 8px 10px;
                 font-size: 12px;
+            }
+        }
+
+        @media (max-width: 450px) {
+            .category-btn {
                 white-space: normal;
                 text-align: center;
-                line-height: 1.3;
+                line-height: 1.2;
+                padding: 8px 8px;
+                min-width: 85px;
+                flex-shrink: 1;
+            }
+        }
+        
+        @media (max-width: 380px) {
+            .category-btn {
+                font-size: 11px;
+                padding: 7px 6px;
+                min-width: 75px;
             }
         }
                        /* ===== ИСПРАВЛЕНИЕ ДЛЯ МОБИЛЬНЫХ: ИКОНКИ ВВЕРХ ===== */
