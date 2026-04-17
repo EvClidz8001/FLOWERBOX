@@ -348,7 +348,7 @@
             50% { transform: translateY(-15px); }
         }
 
-        /* ===== БУРГЕР-МЕНЮ (НОВОЕ) ===== */
+        /* ===== БУРГЕР-МЕНЮ ===== */
         .burger {
             display: none;
             flex-direction: column;
@@ -853,7 +853,7 @@
             transform: scale(1.02);
         }
 
-        /* Корзина (обновлённая) */
+        /* Корзина */
         .cart-items {
             background: #fff5f5;
             border-radius: 20px;
@@ -1140,7 +1140,7 @@
             font-size: 14px;
         }
 
-        /* МЕНЮ-КАТАЛОГ (выезжает СЛЕВА) */
+        /* МЕНЮ-КАТАЛОГ  */
         .catalog-menu-panel {
             position: fixed;
             top: 0;
@@ -1423,7 +1423,7 @@
             height: 40px;
         }
 
-        /* ===== ДОБАВЛЕНО: БОКОВОЕ МЕНЮ В КАТАЛОГЕ (ПР №13) ===== */
+        /* ===== БОКОВОЕ МЕНЮ ===== */
         .catalog-container {
             display: flex;
             max-width: 1400px;
@@ -2045,6 +2045,17 @@
                 padding: 12px 15px;
             }
         }
+        @media (min-width: 993px) {
+    .burger {
+        display: flex !important;
+        cursor: pointer;
+    }
+    
+    .menu-text {
+        display: block !important;
+        cursor: pointer;
+    }
+}
     </style>
 </head>
 <body>
@@ -3416,29 +3427,43 @@ let products = [
         updateCartCount();
         updateProfileInfo();
         
-                        // Бургер-меню и навигация 
-        const burger = document.getElementById('burgerBtn');
-        const menuText = document.getElementById('menuText');
-        const navLinks = document.getElementById('navLinks');
-        
-        // КАТАЛОГ
-        if (burger) {
-            burger.onclick = (e) => {
-                e.stopPropagation();
-                openCatalogMenu();
-            };
+                       // Бургер-меню и навигация 
+const burger = document.getElementById('burgerBtn');
+const menuText = document.getElementById('menuText');
+const navLinks = document.getElementById('navLinks');
+
+// Функция проверки - ПК или мобилка
+function isDesktop() {
+    return window.innerWidth > 992;
+}
+
+// Обработчик для бургера
+if (burger) {
+    burger.onclick = (e) => {
+        e.stopPropagation();
+        if (isDesktop()) {
+            // На ПК открываем боковое меню каталога
+            openCatalogMenu();
+        } else {
+            // На мобилке показываем/скрываем навигацию
+            navLinks.classList.toggle('active');
         }
-        
-        // НАВИГАЦИЮ
-        if (menuText) {
-            menuText.onclick = (e) => {
-                e.stopPropagation();
-                if (window.innerWidth <= 992) {
-                    navLinks.classList.toggle('active');
-                }
-            };
+    };
+}
+
+// Обработчик для текста "Меню"
+if (menuText) {
+    menuText.onclick = (e) => {
+        e.stopPropagation();
+        if (isDesktop()) {
+            // На ПК открываем боковое меню каталога
+            openCatalogMenu();
+        } else {
+            // На мобилке показываем/скрываем навигацию
+            navLinks.classList.toggle('active');
         }
-        
+    };
+}
         // Закрываем навигацию 
         document.addEventListener('click', (e) => {
             if (window.innerWidth <= 992) {
@@ -3534,8 +3559,10 @@ function selectDeliveryZone(zone) {
     selectedDeliveryZone = zone;
     renderCartModal();
 }
+function openCatalogMenu() {
+    document.getElementById('catalogMenuPanel').classList.add('active');
+}
 
-// Добавь в глобальную область (где уже есть window.что-то)
 window.setDeliveryType = setDeliveryType;
 window.selectDeliveryZone = selectDeliveryZone;
         window.showCheckout = showCheckout;
