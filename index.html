@@ -1851,6 +1851,10 @@
                 min-width: 75px;
             }
         }
+        .checkout-header {
+    justify-content: space-between; 
+    align-items: center; 
+}
                        /* ===== ИСПРАВЛЕНИЕ ДЛЯ МОБИЛЬНЫХ: ИКОНКИ ВВЕРХ ===== */
         @media (max-width: 992px) {
             .top-bar {
@@ -1951,42 +1955,54 @@
                 width: 45px !important;
             }
         }
-                /* ===== ИСПРАВЛЕНИЕ Z-INDEX ДЛЯ МОБИЛЬНОГО МЕНЮ ===== */
-        @media (max-width: 992px) {
-            .nav-links {
-                position: absolute;
-                top: 70px;
-                left: 0;
-                right: 0;
-                background: #ffd4d4;
-                flex-direction: column;
-                align-items: center;
-                gap: 15px;
-                padding: 20px;
-                border-radius: 0 0 20px 20px;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-                z-index: 9999 !important; /* ← САМЫЙ ВЫСОКИЙ Z-INDEX */
-                display: none;
-            }
-            
-            .nav-links.active {
-                display: flex !important;
-            }
-            
-            .nav-links a {
-                font-size: 20px;
-                padding: 10px 20px;
-                width: 100%;
-                text-align: center;
-                background: rgba(255,255,255,0.5);
-                border-radius: 40px;
-                z-index: 10000;
-                cursor: pointer;
-            }
-            
-            .nav-links a:hover {
-                background: white;
-            }
+              
+@media (max-width: 992px) {
+    .nav-links {
+        display: flex !important;
+        position: static;
+        background: transparent;
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 15px 5px;
+        box-shadow: none;
+        width: 100%;
+        order: 3;
+        z-index: 1000 !important;
+    }
+    
+    .nav-links a {
+        font-size: 16px;
+        padding: 8px 12px;
+        background: rgba(255,255,255,0.4);
+        border-radius: 30px;
+        width: auto;
+        white-space: nowrap;
+        z-index: 1001 !important;
+        cursor: pointer;
+        position: relative;
+    }
+    
+    .nav-links a:hover {
+        background: white;
+    }
+    
+    /* На самых маленьких экранах */
+    @media (max-width: 480px) {
+        .nav-links a {
+            font-size: 14px;
+            padding: 6px 10px;
+        }
+    }
+    
+    @media (max-width: 380px) {
+        .nav-links a {
+            font-size: 12px;
+            padding: 5px 8px;
+        }
+    }
+}
             
             /* Убеждаемся что другие элементы не перекрывают */
             .title-block, 
@@ -2404,10 +2420,9 @@
 <div class="checkout-modal" id="checkoutModal">
     <div class="checkout-content">
         <div class="checkout-header">
-            <h3>🛒 Ваш заказ</h3>
-            <span class="close-modal" onclick="closeCheckoutModal()" style="color: white; font-size: 28px; cursor: pointer; float: right;">&times;</span>
-            <div style="clear: both;"></div>
-        </div>
+    <h3>🛒 Ваш заказ</h3>
+    <span class="close-modal" onclick="closeCheckoutModal()">&times;</span>
+</div>
         <div class="checkout-body" id="checkoutBody"></div>
     </div>
 </div>
@@ -3507,8 +3522,22 @@ let products = [
                 });
             });
         }
-        
-        // Добавляем функции в глобальную область
+        function setDeliveryType(type) {
+    deliveryType = type;
+    if (type === 'pickup') {
+        selectedDeliveryZone = "";
+    }
+    renderCartModal();
+}
+
+function selectDeliveryZone(zone) {
+    selectedDeliveryZone = zone;
+    renderCartModal();
+}
+
+// Добавь в глобальную область (где уже есть window.что-то)
+window.setDeliveryType = setDeliveryType;
+window.selectDeliveryZone = selectDeliveryZone;
         window.showCheckout = showCheckout;
         window.closeCheckoutModal = closeCheckoutModal;
         window.showCheckout = showCheckout;
