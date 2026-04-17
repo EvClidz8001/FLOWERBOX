@@ -2056,6 +2056,26 @@
         cursor: pointer;
     }
 }
+        /* На ПК скрываем бургер (три полоски) */
+@media (min-width: 993px) {
+    .burger {
+        display: none !important;
+    }
+    
+    .menu-text {
+        display: block !important;
+        cursor: pointer;
+        font-size: 22px;
+        margin-left: 20px;
+    }
+}
+
+/* На мобилке показываем бургер */
+@media (max-width: 992px) {
+    .burger {
+        display: flex !important;
+    }
+}
     </style>
 </head>
 <body>
@@ -3432,20 +3452,26 @@ const burger = document.getElementById('burgerBtn');
 const menuText = document.getElementById('menuText');
 const navLinks = document.getElementById('navLinks');
 
-// Функция проверки - ПК или мобилка
-function isDesktop() {
-    return window.innerWidth > 992;
-}
-
-// Обработчик для бургера
+// Обработчик для бургера (работает ТОЛЬКО на мобилке)
 if (burger) {
     burger.onclick = (e) => {
         e.stopPropagation();
-        if (isDesktop()) {
-            // На ПК открываем боковое меню каталога
+        // Только на мобилке показываем/скрываем навигацию
+        if (window.innerWidth <= 992) {
+            navLinks.classList.toggle('active');
+        }
+    };
+}
+
+// Обработчик для текста "Меню"
+if (menuText) {
+    menuText.onclick = (e) => {
+        e.stopPropagation();
+        if (window.innerWidth > 992) {
+            // На ПК - открываем каталог
             openCatalogMenu();
         } else {
-            // На мобилке показываем/скрываем навигацию
+            // На мобилке - показываем навигацию
             navLinks.classList.toggle('active');
         }
     };
