@@ -7,6 +7,9 @@
     <!-- Яндекс.Карты -->
     <script src="https://api-maps.yandex.ru/2.1/?apikey=ваш_API_ключ&lang=ru_RU" type="text/javascript"></script>
     <style>
+        .burger {
+    display: none !important;
+}
         /* ===== ПОДКЛЮЧЕНИЕ ШРИФТОВ ===== */
         @font-face {
             font-family: 'Poppins-Light';
@@ -2076,6 +2079,26 @@
         display: flex !important;
     }
 }
+        @media (max-width: 992px) {
+    .nav-links {
+        display: flex !important;
+        position: static;
+        background: transparent;
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 15px 5px;
+        width: 100%;
+    }
+    
+    .nav-links a {
+        font-size: 16px;
+        padding: 8px 15px;
+        background: rgba(255,255,255,0.3);
+        border-radius: 30px;
+    }
+}
     </style>
 </head>
 <body>
@@ -3447,65 +3470,42 @@ let products = [
         updateCartCount();
         updateProfileInfo();
         
-                       // Бургер-меню и навигация 
-const burger = document.getElementById('burgerBtn');
+                      // Навигация и меню
 const menuText = document.getElementById('menuText');
 const navLinks = document.getElementById('navLinks');
 
-// Обработчик для бургера (работает ТОЛЬКО на мобилке)
-if (burger) {
-    burger.onclick = (e) => {
-        e.stopPropagation();
-        // Только на мобилке показываем/скрываем навигацию
-        if (window.innerWidth <= 992) {
-            navLinks.classList.toggle('active');
-        }
-    };
-}
-
-// Обработчик для текста "Меню"
+// Обработчик для текста "Меню" - открывает каталог на всех устройствах
 if (menuText) {
     menuText.onclick = (e) => {
         e.stopPropagation();
-        if (window.innerWidth > 992) {
-            // На ПК - открываем каталог
-            openCatalogMenu();
-        } else {
-            // На мобилке - показываем навигацию
-            navLinks.classList.toggle('active');
-        }
+        openCatalogMenu();
     };
 }
 
-// Обработчик для текста "Меню"
-if (menuText) {
-    menuText.onclick = (e) => {
-        e.stopPropagation();
-        if (isDesktop()) {
-            // На ПК открываем боковое меню каталога
-            openCatalogMenu();
-        } else {
-            // На мобилке показываем/скрываем навигацию
-            navLinks.classList.toggle('active');
+// Закрытие каталога при клике вне его
+document.addEventListener('click', (e) => {
+    const catalogMenu = document.getElementById('catalogMenuPanel');
+    if (catalogMenu && catalogMenu.classList.contains('active')) {
+        if (!e.target.closest('.menu-text') && !e.target.closest('#catalogMenuPanel')) {
+            closeCatalogMenu();
         }
-    };
+    }
+});
+
+// Функции для работы с каталогом
+function openCatalogMenu() {
+    const catalogMenu = document.getElementById('catalogMenuPanel');
+    if (catalogMenu) {
+        catalogMenu.classList.add('active');
+    }
 }
-        // Закрываем навигацию 
-        document.addEventListener('click', (e) => {
-            if (window.innerWidth <= 992) {
-                if (!e.target.closest('.menu-text') && !e.target.closest('#navLinks')) {
-                    navLinks.classList.remove('active');
-                }
-            }
-        });
-        
-        // При изменении размера экрана сбрасываем навигацию
-        window.addEventListener('resize', () => {
-            if (window.innerWidth > 992) {
-                navLinks.classList.remove('active');
-            }
-        });
-        
+
+function closeCatalogMenu() {
+    const catalogMenu = document.getElementById('catalogMenuPanel');
+    if (catalogMenu) {
+        catalogMenu.classList.remove('active');
+    }
+}
         // Кнопка заказа звонка
         const callBtn = document.getElementById('callBtn');
         if (callBtn) {
@@ -3584,9 +3584,6 @@ if (menuText) {
 function selectDeliveryZone(zone) {
     selectedDeliveryZone = zone;
     renderCartModal();
-}
-function openCatalogMenu() {
-    document.getElementById('catalogMenuPanel').classList.add('active');
 }
 
 window.setDeliveryType = setDeliveryType;
